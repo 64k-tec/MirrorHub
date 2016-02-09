@@ -34,3 +34,4 @@ captures/
 art/
 gradle.properties
 debug.keystore
+.DS_Store
