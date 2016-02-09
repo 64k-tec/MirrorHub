@@ -30,3 +30,7 @@ proguard/
 
 # Android Studio captures folder
 captures/
+
+art/
+gradle.properties
+debug.keystore

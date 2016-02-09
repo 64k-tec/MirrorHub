@@ -1,0 +1,72 @@
+# The MIT License (MIT)
+#
+# Copyright (c) 2016 Christian Pötzsch
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# Google Maps API key
+# https://developers.google.com/maps/signup
+maps_api_key=""
+
+# MetOffice API key
+# http://www.metoffice.gov.uk/datapoint/getting-started
+metoffice_api_key=""
+
+# NationalRail API key
+# http://realtime.nationalrail.co.uk/OpenLDBWSRegistration/
+nationalrail_api_key=""
+
+# Tfl API key and application id
+# https://tfl.gov.uk/info-for/open-data-users/data-feeds
+tfl_api_key=""
+tfl_api_id=""
+
+# SunTimes configuration
+suntimes_latitude="51.5033729"
+suntimes_longitute="-0.1277229"
+suntimes_timezone="GMT"
+
+# TimeToWork configuration
+timetowork_origin="10 Downing St, London SW1A 2AA"
+timetowork_destination="Westminster, London SW1A 2PW"
+
+# Forecast configuration
+# See http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/sitelist?key=metoffice_api_key
+# for the list of location ids
+forecast_location_id="354160"
+
+# National Rail configuration
+# See http://www.nationalrail.co.uk/stations_destinations/48541.aspx
+# for station codes
+# Charing Cross:
+nationalrail_crs="CHX"
+# Ramsgate:
+nationalrail_filter_crs="RAM"
+nationalrail_filter_type="to"
+
+# Tfl configuration
+# See https://api.tfl.gov.uk/StopPoint/Search/Piccadilly%20Circus?modes=tube&app_id=tfl_api_id&app_key=tfl_api_key
+# for location ids
+# Charing Cross:
+tfl_from_id="1000045"
+# Piccadilly Circus:
+tfl_to_id="1000179"
+
+# Calendar configuration
+calendar_birthday_cal="Contact birthdays"
