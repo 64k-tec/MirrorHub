@@ -17,6 +17,10 @@ Currently the following modules are implemented:
  6. Next national rail trains from a specific station
  7. Upcoming calendar events for the next few days (API level >= 23)
 
+Some of those modules can be seen here in action: 
+
+![Screenshot](screenshot.png)
+
 ## Configuration
 
 Everything is build time configured through the gradle.properties file. See [gradle.properties.example](gradle.properties.example) for the available options. You will need to sign up for the various web services used by the project and put the corresponding API keys in there.
