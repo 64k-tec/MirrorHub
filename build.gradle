@@ -86,7 +86,7 @@ android {
         buildConfigField "String", "CALENDAR_BIRTHDAY_CAL", calendar_birthday_cal
 
         // Global configuration
-        buildConfigField "boolean", "ENABLE_PROXIMITY_SENSOR", "true"
+        buildConfigField "boolean", "ENABLE_PROXIMITY_SENSOR", "false"
 
         // Additional debug switches
         buildConfigField "boolean", "TIMETOWORK_SHOW_ALWAYS", "false"
