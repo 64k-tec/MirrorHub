@@ -134,7 +134,7 @@ dependencies {
     // Extended annotation support
     compile 'com.android.support:support-annotations:23.1.1'
     // Third party
-    compile 'com.squareup.okhttp:okhttp:2.7.2'
+    compile 'com.squareup.okhttp3:okhttp:3.1.2'
     compile 'org.jdom:jdom2:2.0.6'
     compile 'com.luckycatlabs:SunriseSunsetCalculator:1.2'
 }
