@@ -110,11 +110,6 @@ android {
     }
 
     signingConfigs {
-        debug {
-            // Put this into the project folder to allow working from multiple
-            // computers without reinstall
-            storeFile     file('debug.keystore')
-        }
         /*
         release {
             storeFile     "${System.env.MIRRORHUB_PRIVATE_KEY}"
