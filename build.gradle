@@ -110,14 +110,12 @@ android {
     }
 
     signingConfigs {
-        /*
         release {
-            storeFile     "${System.env.MIRRORHUB_PRIVATE_KEY}"
-            keyAlias      "${System.env.MIRRORHUB_ALIAS}"
-            storePassword "${System.env.MIRRORHUB_STORE_PW}"
-            keyPassword   "${System.env.MIRRORHUB_PW}"
+            storeFile     file("${System.env.MIRRORHUB_PRIVATE_KEY}")
+            keyAlias           "${System.env.MIRRORHUB_ALIAS}"
+            storePassword      "${System.env.MIRRORHUB_STORE_PW}"
+            keyPassword        "${System.env.MIRRORHUB_PW}"
         }
-        */
     }
 
     // Task to run the app on the target device
