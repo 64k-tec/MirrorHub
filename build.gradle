@@ -124,7 +124,24 @@ android {
         }
         */
     }
+
+    // Task to run the app on the target device
+    android.applicationVariants.all { buildType ->
+        task ("run"+buildType.name.capitalize()) {
+            group = "Run"
+            description = "Runs the "+buildType.name.capitalize()+" build on the connected device."
+            doLast {
+                def adb = android.getAdbExe().toString()
+                def aapt = android.getSdkDirectory().toString()+"/build-tools/$project.android.buildToolsRevision/aapt"
+                def s = [aapt, 'dump', 'badging', buildType.outputs.outputFile[0]].execute().text.readLines()
+                String pgk = (s.find { it.startsWith("package:") } =~ /name='(.*?)'/)[0][1]
+                String act = (s.find { it.startsWith("launchable-activity:") } =~ /name='(.*?)'/)[0][1]
+                exec { commandLine adb, 'shell', 'am', 'start', '-n', "$pgk/$act" }
+            }
+        }
+    }
 }
+
 repositories {
     mavenCentral()
 }
