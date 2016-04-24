@@ -85,7 +85,7 @@ public class TflModule extends Module<ArrayList<TrainJourney>> {
                                 disruptionDesc = l.getJSONArray("disruptions").
                                     getJSONObject(0).getString("description");
                             }
-                            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"), Locale.UK);
+                            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/London"), Locale.UK);
                             cal.setTime(df.parse(l.getString("departureTime")));
                             /* Only future events */
                             if (cal.after(now)) {

@@ -77,7 +77,7 @@ public class NationalRailModule extends Module<ArrayList<TrainJourney>> {
             try {
                 final SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
                 final Calendar now = Calendar.getInstance();
-                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"), Locale.UK);
+                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/London"), Locale.UK);
                 ArrayList<TrainJourney> list = new ArrayList<TrainJourney>(5);
                 InputStream stream = new ByteArrayInputStream(result.getBytes(Charset.forName("UTF-8")));
                 SAXBuilder sb = new SAXBuilder();
@@ -90,7 +90,7 @@ public class NationalRailModule extends Module<ArrayList<TrainJourney>> {
                 formatter.setCalendar(cal);
                 for (Element c:root.getDescendants(filter2))
                 {
-                    Calendar time = Calendar.getInstance(TimeZone.getTimeZone("GMT"), Locale.UK);
+                    Calendar time = Calendar.getInstance(TimeZone.getTimeZone("Europe/London"), Locale.UK);
                     Calendar exp_time = null;
                     String origin = c.getChild("origin", lt2).getChild("location", lt2).getChildText("locationName", lt2);
                     String dest = c.getChild("destination", lt2).getChild("location", lt2).getChildText("locationName", lt2);
@@ -103,7 +103,7 @@ public class NationalRailModule extends Module<ArrayList<TrainJourney>> {
                     time.set(Calendar.SECOND, 0);
                     time.set(Calendar.MILLISECOND, 0);
                     if (!etd.equals("On time")) {
-                        exp_time = Calendar.getInstance(TimeZone.getTimeZone("GMT"), Locale.UK);
+                        exp_time = Calendar.getInstance(TimeZone.getTimeZone("Europe/London"), Locale.UK);
                         cal.setTime(formatter.parse(etd));
                         exp_time.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
                         exp_time.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));

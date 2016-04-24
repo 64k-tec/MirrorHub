@@ -78,7 +78,7 @@ public class ForecastMetOfficeModule extends Module<ArrayList<Forecast>> {
                     JSONArray rep = per.getJSONArray("Rep");
                     Date date = formatter.parse(per.getString("value"));
                     for (int i = 0; i < rep.length() && list.size() < maxEvents; i++) {
-                        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"), Locale.UK);
+                        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/London"), Locale.UK);
                         JSONObject Forecast = rep.getJSONObject(i);
                         cal.setTime(date);
                         cal.set(Calendar.MINUTE, Forecast.getInt("$"));

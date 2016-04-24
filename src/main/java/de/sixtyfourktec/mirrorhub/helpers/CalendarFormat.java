@@ -28,6 +28,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
+import java.text.ParseException;
 
 import android.os.Build;
 
@@ -105,6 +107,13 @@ public class CalendarFormat {
                 getBestShortDatePattern() + " " + getBestShortTimePattern());
         df.setTimeZone(cal.getTimeZone());
         return df.format(cal.getTime());
+    }
+
+    public static final Calendar convertToTimeZone(final Calendar cal, final TimeZone tz) throws ParseException {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
+        Calendar newCal = Calendar.getInstance(tz);
+        newCal.setTime(df.parse(formatFull(cal)));
+        return newCal;
     }
 }
 

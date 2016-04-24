@@ -25,8 +25,9 @@
 package de.sixtyfourktec.mirrorhub.modules;
 
 import de.sixtyfourktec.mirrorhub.BuildConfig;
-import de.sixtyfourktec.mirrorhub.modules.Module;
 import de.sixtyfourktec.mirrorhub.data.CalendarEvent;
+import de.sixtyfourktec.mirrorhub.helpers.CalendarFormat;
+import de.sixtyfourktec.mirrorhub.modules.Module;
 
 import java.lang.System;
 import java.text.SimpleDateFormat;
@@ -110,8 +111,10 @@ public class CalendarModule extends Module<ArrayList<CalendarEvent>> {
                         final TimeZone utc = TimeZone.getTimeZone("UTC");
                         Calendar s = Calendar.getInstance(utc);
                         s.setTimeInMillis(eventCursor.getLong(EVT_BEGIN));
+                        Calendar s1 = CalendarFormat.convertToTimeZone(s, TimeZone.getDefault());
                         Calendar e = Calendar.getInstance(utc);
                         e.setTimeInMillis(eventCursor.getLong(EVT_END));
+                        Calendar e1 = CalendarFormat.convertToTimeZone(e, TimeZone.getDefault());
 
                         int type = CalendarEvent.NORMAL;
                         if (!eventCursor.getString(EVT_ALL_DAY).equals("0"))
@@ -131,8 +134,8 @@ public class CalendarModule extends Module<ArrayList<CalendarEvent>> {
                         CalendarEvent event = new CalendarEvent(
                                 type,
                                 eventCursor.getString(EVT_TITLE),
-                                s,
-                                e,
+                                s1,
+                                e1,
                                 !eventCursor.getString(EVT_ALL_DAY).equals("0"));
 
                         list.add(event);
