@@ -57,6 +57,10 @@
       android:layout_height="wrap_content"
       android:layout_marginLeft="@dimen/item_margin"
       android:textSize="@dimen/music_title_size"
+      android:singleLine="true"
+      android:ellipsize="marquee"
+      android:marqueeRepeatLimit="marquee_forever"
+      android:scrollHorizontally="true"
     />
 
     <TextView

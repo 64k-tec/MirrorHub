@@ -58,6 +58,8 @@ public class MusicView extends AnimationSwitcher<MusicModule> {
             album.setText(me.album);
             TextView title = (TextView)findViewById(R.id.title);
             title.setText(me.title);
+            /* Necessary to make marquee work */
+            title.setSelected(true);
         }
     }
 
