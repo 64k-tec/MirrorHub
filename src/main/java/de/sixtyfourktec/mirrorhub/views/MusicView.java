@@ -25,57 +25,66 @@
 package de.sixtyfourktec.mirrorhub.views;
 
 import de.sixtyfourktec.mirrorhub.R;
-import de.sixtyfourktec.mirrorhub.data.TimeToWork;
+import de.sixtyfourktec.mirrorhub.data.MusicEvent;
 import de.sixtyfourktec.mirrorhub.modules.ModuleCallback;
-import de.sixtyfourktec.mirrorhub.modules.TimeToWorkModule;
+import de.sixtyfourktec.mirrorhub.modules.MusicModule;
 import de.sixtyfourktec.mirrorhub.views.AnimationSwitcher;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.TypedValue;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.TableLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class TimeToWorkView extends AnimationSwitcher<TimeToWorkModule> {
+public class MusicView extends AnimationSwitcher<MusicModule> {
 
-    private class TimeToWorkViewItem extends RelativeLayout {
-        public TimeToWorkViewItem(Context context, TimeToWork ttw) {
+    private class MusicViewItem extends TableLayout {
+        public MusicViewItem(Context context, MusicEvent me) {
             super(context);
             setPadding(5, 0, 5, 0);
 
-            inflate(context, R.layout.timetoworkviewitem, this);
+            inflate(context, R.layout.musicviewitem, this);
 
             ImageView icon = (ImageView)findViewById(R.id.icon);
-            icon.setImageLevel(1);
-            TextView time = (TextView)findViewById(R.id.time);
-            time.setText(ttw.duration);
+            icon.setImageBitmap(me.cover);
+            TextView artist = (TextView)findViewById(R.id.artist);
+            artist.setText(me.artist);
+            TextView album = (TextView)findViewById(R.id.album);
+            album.setText(me.album);
+            TextView title = (TextView)findViewById(R.id.title);
+            title.setText(me.title);
         }
     }
 
-    public class mcb extends ModuleCallback<TimeToWork> {
-        public void onData(TimeToWork res) {
-            TimeToWorkViewItem view = new TimeToWorkViewItem(getContext(), res);
-            TimeToWorkView.this.exchangeView(view);
+    private class mcb extends ModuleCallback<MusicEvent> {
+        public void onData(MusicEvent me) {
+            LinearLayout l = new LinearLayout(getContext());
+            l.setOrientation(LinearLayout.VERTICAL);
+            l.addView(new MusicViewItem(getContext(), me));
+            MusicView.this.exchangeView(l);
         }
         public void onNoData() {
-            TimeToWorkView.this.resetView();
+            MusicView.this.resetView();
         }
     };
 
-    public TimeToWorkView(Context context) {
+    public MusicView(Context context) {
         super(context);
         init();
     }
 
-    public TimeToWorkView(Context context, AttributeSet attrs) {
+    public MusicView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
     private void init() {
-        module = TimeToWorkModule.getInstance();
+        module = MusicModule.getInstance();
         module.addCallback(new mcb());
     }
 }

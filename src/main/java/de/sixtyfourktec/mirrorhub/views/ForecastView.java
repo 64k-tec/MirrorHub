@@ -26,12 +26,12 @@ package de.sixtyfourktec.mirrorhub.views;
 
 import de.sixtyfourktec.mirrorhub.R;
 import de.sixtyfourktec.mirrorhub.data.Forecast;
+import de.sixtyfourktec.mirrorhub.data.ComparableList;
 import de.sixtyfourktec.mirrorhub.helpers.CalendarFormat;
 import de.sixtyfourktec.mirrorhub.modules.ForecastMetOfficeModule;
 import de.sixtyfourktec.mirrorhub.modules.ModuleCallback;
 import de.sixtyfourktec.mirrorhub.views.AnimationSwitcher;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.content.Context;
@@ -43,9 +43,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class ForecastView extends AnimationSwitcher {
-
-    private ForecastMetOfficeModule module;
+public class ForecastView extends AnimationSwitcher<ForecastMetOfficeModule> {
 
     private class ForecastViewItem extends LinearLayout {
         public ForecastViewItem(Context context, Forecast f) {
@@ -66,8 +64,8 @@ public class ForecastView extends AnimationSwitcher {
         }
     }
 
-    private class mcb extends ModuleCallback<ArrayList<Forecast>> {
-        public void onData(ArrayList<Forecast> list) {
+    private class mcb extends ModuleCallback<ComparableList<Forecast>> {
+        public void onData(ComparableList<Forecast> list) {
             LinearLayout l = new LinearLayout(getContext());
             for (int i = 0; i < list.size(); i++) {
                 l.addView(new ForecastViewItem(getContext(), list.get(i)));
@@ -75,7 +73,7 @@ public class ForecastView extends AnimationSwitcher {
             ForecastView.this.exchangeView(l);
         }
         public void onNoData() {
-            ForecastView.this.reset();
+            ForecastView.this.resetView();
         }
     };
 
@@ -92,14 +90,6 @@ public class ForecastView extends AnimationSwitcher {
     private void init() {
         module = ForecastMetOfficeModule.getInstance();
         module.addCallback(new mcb());
-    }
-
-    public void start() {
-        module.start();
-    }
-
-    public void stop() {
-        module.stop();
     }
 }
 

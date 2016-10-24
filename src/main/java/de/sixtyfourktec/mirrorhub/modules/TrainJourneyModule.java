@@ -26,11 +26,11 @@ package de.sixtyfourktec.mirrorhub.modules;
 
 import de.sixtyfourktec.mirrorhub.BuildConfig;
 import de.sixtyfourktec.mirrorhub.data.TrainJourney;
+import de.sixtyfourktec.mirrorhub.data.ComparableList;
 import de.sixtyfourktec.mirrorhub.modules.ModuleCallback;
 import de.sixtyfourktec.mirrorhub.modules.NationalRailModule;
 import de.sixtyfourktec.mirrorhub.modules.TflModule;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
@@ -38,7 +38,7 @@ import java.util.GregorianCalendar;
 import android.os.Handler;
 import android.util.Log;
 
-public class TrainJourneyModule extends Module<ArrayList<TrainJourney>> {
+public class TrainJourneyModule extends Module<ComparableList<TrainJourney>> {
 
     private static final String TAG = "TrainJourneyModule";
     private static TrainJourneyModule instance = null;
@@ -49,12 +49,12 @@ public class TrainJourneyModule extends Module<ArrayList<TrainJourney>> {
     private Handler handler;
     private NationalRailModule nr;
     private TflModule tfl;
-    private ArrayList<TrainJourney> list;
+    private ComparableList<TrainJourney> list;
     private int updated;
 
-    private class tcb extends ModuleCallback<ArrayList<TrainJourney>> {
+    private class tcb extends ModuleCallback<ComparableList<TrainJourney>> {
         @Override
-        public void onData(ArrayList<TrainJourney> l)
+        public void onData(ComparableList<TrainJourney> l)
         {
             synchronized(this) {
                 list.addAll(l);
@@ -79,7 +79,7 @@ public class TrainJourneyModule extends Module<ArrayList<TrainJourney>> {
                     }
                 });
                 /* Clamp the size of the list to maxEvents */
-                ArrayList<TrainJourney> ll = new ArrayList<TrainJourney>(maxEvents);
+                ComparableList<TrainJourney> ll = new ComparableList<TrainJourney>(maxEvents);
                 for (int i=0; i < list.size() && ll.size() < maxEvents; i++) {
                     ll.add(list.get(i));
                 }
@@ -97,7 +97,7 @@ public class TrainJourneyModule extends Module<ArrayList<TrainJourney>> {
         @Override
         public void run() {
             Log.i(TAG, "Update ...");
-            list = new ArrayList<TrainJourney>();
+            list = new ComparableList<TrainJourney>();
             updated = 0;
             tfl.start();
             nr.start();

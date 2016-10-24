@@ -24,7 +24,7 @@
 
 package de.sixtyfourktec.mirrorhub.data;
 
-public class TimeToWork {
+public class TimeToWork implements Comparable<TimeToWork> {
 
     public String duration;
     public String distance;
@@ -37,6 +37,10 @@ public class TimeToWork {
     public String toString() {
         return "duration=" + duration +
             " distance=" + distance;
+    }
+
+    public int compareTo(TimeToWork other) {
+        return toString().compareTo(other.toString());
     }
 }
 

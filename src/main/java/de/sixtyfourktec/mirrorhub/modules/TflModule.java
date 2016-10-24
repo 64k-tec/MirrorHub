@@ -26,6 +26,7 @@ package de.sixtyfourktec.mirrorhub.modules;
 
 import de.sixtyfourktec.mirrorhub.BuildConfig;
 import de.sixtyfourktec.mirrorhub.data.TrainJourney;
+import de.sixtyfourktec.mirrorhub.data.ComparableList;
 import de.sixtyfourktec.mirrorhub.helpers.DownloadCallback;
 import de.sixtyfourktec.mirrorhub.helpers.Downloader;
 import de.sixtyfourktec.mirrorhub.modules.ModuleCallback;
@@ -35,7 +36,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -45,7 +45,7 @@ import android.util.Log;
 
 import android.annotation.SuppressLint;
 
-public class TflModule extends Module<ArrayList<TrainJourney>> {
+public class TflModule extends Module<ComparableList<TrainJourney>> {
 
     private static final String TAG = "TflModule";
     private static TflModule instance = null;
@@ -70,7 +70,7 @@ public class TflModule extends Module<ArrayList<TrainJourney>> {
             try {
                 final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                 final Calendar now = Calendar.getInstance();
-                ArrayList<TrainJourney> list = new ArrayList<TrainJourney>(5);
+                ComparableList<TrainJourney> list = new ComparableList<TrainJourney>(5);
                 final JSONArray journeys = new JSONObject(result).getJSONArray("journeys");
                 for (int j = 0; j < journeys.length(); j++) {
                     final JSONArray legs = journeys.getJSONObject(j).getJSONArray("legs");

@@ -29,7 +29,7 @@ import de.sixtyfourktec.mirrorhub.modules.ModuleCallback;
 
 import java.util.ArrayList;
 
-public abstract class Module<C> {
+public abstract class Module<C extends Comparable> {
 
     private ArrayList<ModuleCallback<C>> callback_list = new ArrayList<ModuleCallback<C>>();
     protected Downloader dl = Downloader.getInstance();

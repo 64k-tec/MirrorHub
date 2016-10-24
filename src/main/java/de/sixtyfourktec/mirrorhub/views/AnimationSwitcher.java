@@ -24,6 +24,9 @@
 
 package de.sixtyfourktec.mirrorhub.views;
 
+import de.sixtyfourktec.mirrorhub.views.ViewCallback;
+import de.sixtyfourktec.mirrorhub.modules.Module;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -32,9 +35,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ViewSwitcher;
 
-public class AnimationSwitcher extends ViewSwitcher {
+public class AnimationSwitcher<T extends Module> extends ViewSwitcher implements MirrorHubView {
 
+    protected T module;
     protected View lastView;
+    protected ViewCallback viewCallback;
+
+    public void addViewCallback(ViewCallback vc) {
+        this.viewCallback = vc;
+    }
 
     public AnimationSwitcher(Context context) {
         super(context);
@@ -62,6 +71,24 @@ public class AnimationSwitcher extends ViewSwitcher {
         showNext();
         removeView(lastView);
         lastView = v;
+        if (viewCallback != null)
+            viewCallback.onData(this);
+    }
+
+    public void resetView() {
+        reset();
+        if (viewCallback != null)
+            viewCallback.onNoData(this);
+    }
+
+    public void start() {
+        if (module != null)
+            module.start();
+    }
+
+    public void stop() {
+        if (module != null)
+            module.stop();
     }
 }
 

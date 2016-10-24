@@ -34,12 +34,9 @@ import java.util.Calendar;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.widget.TextView;
 
-public class TimeView extends AnimationSwitcher {
-
-    private ClockModule module;
+public class TimeView extends AnimationSwitcher<ClockModule>  {
 
     private class mcb extends ModuleCallback<Calendar> {
         public void onData(Calendar cal)
@@ -49,7 +46,7 @@ public class TimeView extends AnimationSwitcher {
             TimeView.this.exchangeView(view);
         }
         public void onNoData() {
-            TimeView.this.reset();
+            TimeView.this.resetView();
         }
     };
 
@@ -69,14 +66,6 @@ public class TimeView extends AnimationSwitcher {
 
         TextView view = (TextView)inflate(getContext(), R.layout.timeviewitem, null);
         exchangeView(view);
-    }
-
-    public void start() {
-        module.start();
-    }
-
-    public void stop() {
-        module.stop();
     }
 }
 

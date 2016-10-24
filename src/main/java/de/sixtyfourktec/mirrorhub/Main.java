@@ -24,6 +24,7 @@
 
 package de.sixtyfourktec.mirrorhub;
 
+import de.sixtyfourktec.mirrorhub.views.MirrorHubView;
 import de.sixtyfourktec.mirrorhub.views.DateView;
 import de.sixtyfourktec.mirrorhub.views.TimeView;
 import de.sixtyfourktec.mirrorhub.views.SunTimesView;
@@ -65,11 +66,7 @@ public class Main extends Activity
 
     private static final int PERMISSIONS_REQUEST_READ_CALENDAR = 1;
 
-    private TimeView timeView;
-    private DateView dateView;
-    private SunTimesView sunTimesView;
-    private ForecastView forcastView;
-    private TimeToWorkView timeToWorkView;
+    private ArrayList<MirrorHubView> views = new ArrayList<MirrorHubView>();
     private OverlayView overlayView;
 
     private SensorManager sensorManager = null;
@@ -165,12 +162,13 @@ public class Main extends Activity
 
         setContentView(R.layout.main);
 
-        dateView = (DateView)findViewById(R.id.dateView);
-        timeView = (TimeView)findViewById(R.id.timeView);
-        sunTimesView = (SunTimesView)findViewById(R.id.sunTimesView);
-        forcastView = (ForecastView)findViewById(R.id.forecastView);
-        timeToWorkView = (TimeToWorkView)findViewById(R.id.timeToWorkView);
+        views.add((DateView)findViewById(R.id.dateView));
+        views.add((TimeView)findViewById(R.id.timeView));
+        views.add((SunTimesView)findViewById(R.id.sunTimesView));
+        views.add((ForecastView)findViewById(R.id.forecastView));
+        views.add((TimeToWorkView)findViewById(R.id.timeToWorkView));
         overlayView = (OverlayView)findViewById(R.id.overlayView);
+        views.add(overlayView);
 
         if (ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.READ_CALENDAR)
@@ -179,9 +177,8 @@ public class Main extends Activity
                     new String[]{Manifest.permission.READ_CALENDAR},
                     PERMISSIONS_REQUEST_READ_CALENDAR);
         }
-        else {
+        else
             overlayView.enableCalendarView();
-        }
 
         if (BuildConfig.ENABLE_PROXIMITY_SENSOR) {
             sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
@@ -194,12 +191,8 @@ public class Main extends Activity
     public void onResume() {
         super.onResume();
 
-        timeView.start();
-        dateView.start();
-        sunTimesView.start();
-        forcastView.start();
-        timeToWorkView.start();
-        overlayView.start();
+        for (int i = 0; i < views.size(); i++)
+            views.get(i).start();
 
         if (sensorManager != null) {
             sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -216,12 +209,8 @@ public class Main extends Activity
             dimHandler.removeCallbacks(dimRunnable);
         }
 
-        overlayView.stop();
-        timeToWorkView.stop();
-        forcastView.stop();
-        sunTimesView.stop();
-        dateView.stop();
-        timeView.stop();
+        for (int i = 0; i < views.size(); i++)
+            views.get(i).stop();
     }
 
     @Override

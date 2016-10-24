@@ -41,9 +41,7 @@ import android.widget.TextView;
 
 import android.annotation.SuppressLint;
 
-public class DateView extends AnimationSwitcher {
-
-    private ClockModule module;
+public class DateView extends AnimationSwitcher<ClockModule> {
 
     private class mcb extends ModuleCallback<Calendar> {
         @SuppressLint("SimpleDateFormat")
@@ -77,7 +75,7 @@ public class DateView extends AnimationSwitcher {
             DateView.this.exchangeView(view);
         }
         public void onNoData() {
-            DateView.this.reset();
+            DateView.this.resetView();
         }
     };
 
@@ -95,14 +93,6 @@ public class DateView extends AnimationSwitcher {
         module = ClockModule.getInstance();
         module.addCallback(new mcb());
         module.start();
-    }
-
-    public void start() {
-        module.start();
-    }
-
-    public void stop() {
-        module.stop();
     }
 }
 

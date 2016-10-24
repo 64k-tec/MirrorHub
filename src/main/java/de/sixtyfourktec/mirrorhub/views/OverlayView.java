@@ -29,8 +29,11 @@ import de.sixtyfourktec.mirrorhub.modules.ClockModule;
 import de.sixtyfourktec.mirrorhub.modules.ModuleCallback;
 import de.sixtyfourktec.mirrorhub.views.TrainJourneyView;
 import de.sixtyfourktec.mirrorhub.views.CalendarView;
+import de.sixtyfourktec.mirrorhub.views.MirrorHubView;
+import de.sixtyfourktec.mirrorhub.views.ViewCallback;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.content.Context;
@@ -41,14 +44,14 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-public class OverlayView extends ViewFlipper {
+public class OverlayView extends ViewFlipper implements ViewCallback, MirrorHubView {
 
-    private Context ctx;
-    private TrainJourneyView trainJourneyView;
-    private CalendarView calendarView = null;
+    private ArrayList<MirrorHubView> views = new ArrayList<MirrorHubView>();
+    private Context context;
 
     public OverlayView(Context context) {
         super(context);
@@ -61,7 +64,7 @@ public class OverlayView extends ViewFlipper {
     }
 
     private void init(Context context) {
-        ctx = context;
+        this.context = context;
 
         final Animation in = AnimationUtils.loadAnimation(context,
                 android.R.anim.slide_in_left);
@@ -71,31 +74,52 @@ public class OverlayView extends ViewFlipper {
         setInAnimation(in);
         setOutAnimation(out);
 
-        trainJourneyView = new TrainJourneyView(context);
+        views.add(new TrainJourneyView(context));
+        views.add(new MusicView(context));
 
-        addView(trainJourneyView, -1,
-                new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1));
-    }
+        for (int i = 0; i < views.size(); i++)
+            views.get(i).addViewCallback(this);
 
-    public void enableCalendarView() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            calendarView = new CalendarView(ctx);
-            calendarView.start();
-            addView(calendarView, -1,
-                    new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1));
-            setFlipInterval(10*1000);
-            startFlipping();
-        }
+        setFlipInterval(8*1000);
+	}
+
+    public void addViewCallback(ViewCallback vc) {
+        // ignored for now
     }
 
     public void start() {
-        trainJourneyView.start();
+        for (int i = 0; i < views.size(); i++)
+            views.get(i).start();
     }
 
     public void stop() {
-        trainJourneyView.stop();
-        if (calendarView != null)
-            calendarView.stop();
+        for (int i = 0; i < views.size(); i++)
+            views.get(i).stop();
+    }
+
+    public void enableCalendarView() {
+        MirrorHubView mhv = new CalendarView(context);
+        mhv.addViewCallback(this);
+        mhv.start();
+    }
+
+    @Override
+    public void onData(View v) {
+        if (indexOfChild(v) == -1) {
+            addView(v, -1,
+                    new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1));
+            if (getChildCount() > 1)
+                startFlipping();
+        }
+    }
+
+    @Override
+    public void onNoData(View v) {
+        if (indexOfChild(v) != -1) {
+            removeView(v);
+            if (getChildCount() < 2)
+                stopFlipping();
+        }
     }
 }
 

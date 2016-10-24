@@ -32,7 +32,7 @@ import java.util.Calendar;
 
 import android.support.annotation.IntDef;
 
-public class TrainJourney {
+public class TrainJourney implements Comparable<TrainJourney> {
 
     @IntDef({TUBE, RAIL})
     @Retention(RetentionPolicy.SOURCE)
@@ -74,6 +74,10 @@ public class TrainJourney {
         if (expectedDepartureTime != null)
             s += " expectedDepartureTime=" + CalendarFormat.formatFull(expectedDepartureTime);
         return s;
+    }
+
+    public int compareTo(TrainJourney other) {
+        return toString().compareTo(other.toString());
     }
 }
 

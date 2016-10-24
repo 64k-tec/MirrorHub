@@ -24,30 +24,30 @@
 
 package de.sixtyfourktec.mirrorhub.data;
 
-import de.sixtyfourktec.mirrorhub.helpers.CalendarFormat;
+import android.graphics.Bitmap;
 
-import java.util.Calendar;
-import java.lang.Integer;
+public class MusicEvent implements Comparable<MusicEvent> {
 
-public class Forecast implements Comparable<Forecast> {
+    public String album;
+    public String artist;
+    public String title;
+    public Bitmap cover;
 
-    public Calendar time;
-    public String temperature;
-    public int code;
-
-    public Forecast(Calendar cal, String temp, String code) {
-        this.time = cal;
-        this.temperature = temp;
-        this.code = Integer.parseInt(code);
+    public MusicEvent(String artist, String album, String title, Bitmap cover) {
+        this.artist = artist;
+        this.album = album;
+        this.title = title;
+        this.cover = cover;
     }
 
     public String toString() {
-        return "time=" + CalendarFormat.formatFull(time) +
-            " temperature=" + temperature +
-            " code=" + code;
+        String s = "artist=" + artist +
+            " album=" + album +
+            " title=" + title;
+        return s;
     }
 
-    public int compareTo(Forecast other) {
+    public int compareTo(MusicEvent other) {
         return toString().compareTo(other.toString());
     }
 }

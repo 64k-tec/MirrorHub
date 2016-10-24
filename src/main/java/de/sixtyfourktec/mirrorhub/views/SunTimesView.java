@@ -40,9 +40,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class SunTimesView extends AnimationSwitcher {
-
-    private SunTimesModule module;
+public class SunTimesView extends AnimationSwitcher<SunTimesModule> {
 
     private class SunTimesViewItem extends RelativeLayout {
         public SunTimesViewItem(Context context, SunTimes st) {
@@ -64,7 +62,7 @@ public class SunTimesView extends AnimationSwitcher {
             SunTimesView.this.exchangeView(view);
         }
         public void onNoData() {
-            SunTimesView.this.reset();
+            SunTimesView.this.resetView();
         }
     };
 
@@ -81,14 +79,6 @@ public class SunTimesView extends AnimationSwitcher {
     private void init() {
         module = SunTimesModule.getInstance();
         module.addCallback(new mcb());
-    }
-
-    public void start() {
-        module.start();
-    }
-
-    public void stop() {
-        module.stop();
     }
 }
 

@@ -26,12 +26,12 @@ package de.sixtyfourktec.mirrorhub.views;
 
 import de.sixtyfourktec.mirrorhub.R;
 import de.sixtyfourktec.mirrorhub.data.CalendarEvent;
+import de.sixtyfourktec.mirrorhub.data.ComparableList;
 import de.sixtyfourktec.mirrorhub.helpers.CalendarFormat;
 import de.sixtyfourktec.mirrorhub.modules.CalendarModule;
 import de.sixtyfourktec.mirrorhub.modules.ModuleCallback;
 import de.sixtyfourktec.mirrorhub.views.AnimationSwitcher;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.content.Context;
@@ -45,10 +45,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-
-public class CalendarView extends AnimationSwitcher {
-
-    private CalendarModule module = null;
+public class CalendarView extends AnimationSwitcher<CalendarModule> {
 
     private class CalendarViewItem extends TableLayout {
         public CalendarViewItem(Context context, CalendarEvent event) {
@@ -76,8 +73,8 @@ public class CalendarView extends AnimationSwitcher {
         }
     }
 
-    public class mcb extends ModuleCallback<ArrayList<CalendarEvent>> {
-        public void onData(ArrayList<CalendarEvent> list) {
+    public class mcb extends ModuleCallback<ComparableList<CalendarEvent>> {
+        public void onData(ComparableList<CalendarEvent> list) {
             LinearLayout l = new LinearLayout(getContext());
             l.setOrientation(LinearLayout.VERTICAL);
             for (int i = 0; i < list.size(); i++) {
@@ -86,7 +83,7 @@ public class CalendarView extends AnimationSwitcher {
             CalendarView.this.exchangeView(l);
         }
         public void onNoData() {
-            CalendarView.this.reset();
+            CalendarView.this.resetView();
         }
     };
 
@@ -105,16 +102,6 @@ public class CalendarView extends AnimationSwitcher {
             module = CalendarModule.getInstance(getContext());
             module.addCallback(new mcb());
         }
-    }
-
-    public void start() {
-        if (module != null)
-            module.start();
-    }
-
-    public void stop() {
-        if (module != null)
-            module.stop();
     }
 }
 

@@ -36,5 +36,9 @@
   <dimen name="trainjourney_text_size_small">14sp</dimen>
   <dimen name="calendar_text_size">20sp</dimen>
   <dimen name="calendar_date_size">14sp</dimen>
+  <dimen name="music_icon_height">85sp</dimen>
+  <dimen name="music_artist_size">16sp</dimen>
+  <dimen name="music_title_size">22sp</dimen>
+  <dimen name="music_album_size">16sp</dimen>
 </resources>
 <!-- ex: set tabstop=2 shiftwidth=2 expandtab: -->

@@ -26,6 +26,7 @@ package de.sixtyfourktec.mirrorhub.modules;
 
 import de.sixtyfourktec.mirrorhub.BuildConfig;
 import de.sixtyfourktec.mirrorhub.data.Forecast;
+import de.sixtyfourktec.mirrorhub.data.ComparableList;
 import de.sixtyfourktec.mirrorhub.helpers.DownloadCallback;
 import de.sixtyfourktec.mirrorhub.helpers.Downloader;
 import de.sixtyfourktec.mirrorhub.modules.ModuleCallback;
@@ -35,7 +36,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -46,7 +46,7 @@ import android.util.Log;
 
 import android.annotation.SuppressLint;
 
-public class ForecastMetOfficeModule extends Module<ArrayList<Forecast>> {
+public class ForecastMetOfficeModule extends Module<ComparableList<Forecast>> {
 
     private static final String TAG = "ForecastMetOfficeModule";
     private static ForecastMetOfficeModule instance = null;
@@ -71,7 +71,7 @@ public class ForecastMetOfficeModule extends Module<ArrayList<Forecast>> {
                 JSONArray periods = new JSONObject(result).
                     getJSONObject("SiteRep").getJSONObject("DV").
                     getJSONObject("Location").getJSONArray("Period");
-                ArrayList<Forecast> list = new ArrayList<Forecast>(maxEvents);
+                ComparableList<Forecast> list = new ComparableList<Forecast>(maxEvents);
                 /* We are looking for the next 5 events */
                 for (int j = 0; j < periods.length() && list.size() < maxEvents; j++) {
                     JSONObject per = periods.getJSONObject(j);

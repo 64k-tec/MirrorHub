@@ -88,6 +88,9 @@ android {
         // Calendar configuration
         buildConfigField "String", "CALENDAR_BIRTHDAY_CAL", calendar_birthday_cal
 
+        // Music configuration
+        buildConfigField "String", "MUSIC_HOST", music_host
+
         // Global configuration
         buildConfigField "boolean", "ENABLE_PROXIMITY_SENSOR", "false"
 

@@ -27,15 +27,22 @@ package de.sixtyfourktec.mirrorhub.modules;
 import android.os.Handler;
 import android.os.Looper;
 
-public abstract class ModuleCallback<T> {
+public abstract class ModuleCallback<T extends Comparable> {
 
     private boolean postOnMainThread = true;
+    protected T result = null;
 
     public void setPostOnMainThread(boolean pomt) {
         postOnMainThread = pomt;
     }
 
     public void postData(final T result) {
+
+        // Check if the data has changed
+        if (this.result != null && this.result.compareTo(result) == 0)
+            return;
+        this.result = result;
+
         if (postOnMainThread) {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
@@ -48,6 +55,8 @@ public abstract class ModuleCallback<T> {
     }
 
     public void postNoData() {
+        this.result = null;
+
         if (postOnMainThread) {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override

@@ -26,12 +26,12 @@ package de.sixtyfourktec.mirrorhub.modules;
 
 import de.sixtyfourktec.mirrorhub.BuildConfig;
 import de.sixtyfourktec.mirrorhub.data.CalendarEvent;
+import de.sixtyfourktec.mirrorhub.data.ComparableList;
 import de.sixtyfourktec.mirrorhub.helpers.CalendarFormat;
 import de.sixtyfourktec.mirrorhub.modules.Module;
 
 import java.lang.System;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -50,7 +50,7 @@ import android.util.Log;
 import android.annotation.TargetApi;
 
 @TargetApi(14)
-public class CalendarModule extends Module<ArrayList<CalendarEvent>> {
+public class CalendarModule extends Module<ComparableList<CalendarEvent>> {
 
     private static final String TAG = "CalendarModule";
     private static CalendarModule instance = null;
@@ -105,7 +105,7 @@ public class CalendarModule extends Module<ArrayList<CalendarEvent>> {
                 Cursor eventCursor = ctx.getContentResolver().query(eventsUri,
                         EVT_PROJECTION,
                         null, null, Instances.BEGIN + " ASC");
-                ArrayList<CalendarEvent> list = new ArrayList<CalendarEvent>(maxEvents);
+                ComparableList<CalendarEvent> list = new ComparableList<CalendarEvent>(maxEvents);
                 if(eventCursor.getCount() > 0 && eventCursor.moveToFirst()) {
                     do {
                         final TimeZone utc = TimeZone.getTimeZone("UTC");

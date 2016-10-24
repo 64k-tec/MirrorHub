@@ -22,34 +22,14 @@
  * SOFTWARE.
  */
 
-package de.sixtyfourktec.mirrorhub.data;
+package de.sixtyfourktec.mirrorhub.views;
 
-import de.sixtyfourktec.mirrorhub.helpers.CalendarFormat;
+import android.view.View;
 
-import java.util.Calendar;
-import java.lang.Integer;
+public interface ViewCallback {
 
-public class Forecast implements Comparable<Forecast> {
-
-    public Calendar time;
-    public String temperature;
-    public int code;
-
-    public Forecast(Calendar cal, String temp, String code) {
-        this.time = cal;
-        this.temperature = temp;
-        this.code = Integer.parseInt(code);
-    }
-
-    public String toString() {
-        return "time=" + CalendarFormat.formatFull(time) +
-            " temperature=" + temperature +
-            " code=" + code;
-    }
-
-    public int compareTo(Forecast other) {
-        return toString().compareTo(other.toString());
-    }
+    public abstract void onData(View v);
+    public abstract void onNoData(View v);
 }
 
 /* ex: set tabstop=4 shiftwidth=4 expandtab: */

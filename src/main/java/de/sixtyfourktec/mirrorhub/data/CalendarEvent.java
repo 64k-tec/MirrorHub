@@ -32,7 +32,7 @@ import java.util.Calendar;
 
 import android.support.annotation.IntDef;
 
-public class CalendarEvent {
+public class CalendarEvent implements Comparable<CalendarEvent> {
 
     @IntDef({NORMAL, ALLDAY, BIRTHDAY})
     @Retention(RetentionPolicy.SOURCE)
@@ -63,6 +63,10 @@ public class CalendarEvent {
             " all_day=" + allDay +
             " title=" + title;
         return s;
+    }
+
+    public int compareTo(CalendarEvent other) {
+        return toString().compareTo(other.toString());
     }
 }
 

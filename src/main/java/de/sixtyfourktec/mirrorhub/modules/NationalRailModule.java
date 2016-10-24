@@ -26,6 +26,7 @@ package de.sixtyfourktec.mirrorhub.modules;
 
 import de.sixtyfourktec.mirrorhub.BuildConfig;
 import de.sixtyfourktec.mirrorhub.data.TrainJourney;
+import de.sixtyfourktec.mirrorhub.data.ComparableList;
 import de.sixtyfourktec.mirrorhub.helpers.DownloadCallback;
 import de.sixtyfourktec.mirrorhub.helpers.Downloader;
 import de.sixtyfourktec.mirrorhub.modules.ModuleCallback;
@@ -49,7 +50,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -59,7 +59,7 @@ import android.util.Log;
 
 import android.annotation.SuppressLint;
 
-public class NationalRailModule extends Module<ArrayList<TrainJourney>> {
+public class NationalRailModule extends Module<ComparableList<TrainJourney>> {
 
     private static final String TAG = "NationalRailModule";
     private static NationalRailModule instance = null;
@@ -78,7 +78,7 @@ public class NationalRailModule extends Module<ArrayList<TrainJourney>> {
                 final SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
                 final Calendar now = Calendar.getInstance();
                 Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/London"), Locale.UK);
-                ArrayList<TrainJourney> list = new ArrayList<TrainJourney>(5);
+                ComparableList<TrainJourney> list = new ComparableList<TrainJourney>(5);
                 InputStream stream = new ByteArrayInputStream(result.getBytes(Charset.forName("UTF-8")));
                 SAXBuilder sb = new SAXBuilder();
                 Document doc = sb.build(stream);

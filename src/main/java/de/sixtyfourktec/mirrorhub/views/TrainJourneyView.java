@@ -26,12 +26,12 @@ package de.sixtyfourktec.mirrorhub.views;
 
 import de.sixtyfourktec.mirrorhub.R;
 import de.sixtyfourktec.mirrorhub.data.TrainJourney;
+import de.sixtyfourktec.mirrorhub.data.ComparableList;
 import de.sixtyfourktec.mirrorhub.helpers.CalendarFormat;
 import de.sixtyfourktec.mirrorhub.modules.ModuleCallback;
 import de.sixtyfourktec.mirrorhub.modules.TrainJourneyModule;
 import de.sixtyfourktec.mirrorhub.views.AnimationSwitcher;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.content.Context;
@@ -44,9 +44,7 @@ import android.widget.TableLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class TrainJourneyView extends AnimationSwitcher {
-
-    private TrainJourneyModule module;
+public class TrainJourneyView extends AnimationSwitcher<TrainJourneyModule> {
 
     private class TrainJourneyViewItem extends TableLayout {
         public TrainJourneyViewItem(Context context, TrainJourney tj) {
@@ -79,8 +77,8 @@ public class TrainJourneyView extends AnimationSwitcher {
         }
     }
 
-    private class mcb extends ModuleCallback<ArrayList<TrainJourney>> {
-        public void onData(ArrayList<TrainJourney> list) {
+    private class mcb extends ModuleCallback<ComparableList<TrainJourney>> {
+        public void onData(ComparableList<TrainJourney> list) {
             LinearLayout l = new LinearLayout(getContext());
             l.setOrientation(LinearLayout.VERTICAL);
             for (int i = 0; i < list.size(); i++) {
@@ -89,7 +87,7 @@ public class TrainJourneyView extends AnimationSwitcher {
             TrainJourneyView.this.exchangeView(l);
         }
         public void onNoData() {
-            TrainJourneyView.this.reset();
+            TrainJourneyView.this.resetView();
         }
     };
 
@@ -106,14 +104,6 @@ public class TrainJourneyView extends AnimationSwitcher {
     private void init() {
         module = TrainJourneyModule.getInstance();
         module.addCallback(new mcb());
-    }
-
-    public void start() {
-        module.start();
-    }
-
-    public void stop() {
-        module.stop();
     }
 }
 

@@ -32,7 +32,7 @@ import java.util.Calendar;
 
 import android.support.annotation.IntDef;
 
-public class SunTimes {
+public class SunTimes implements Comparable<SunTimes> {
 
     @IntDef({SUNRISE, SUNSET})
     @Retention(RetentionPolicy.SOURCE)
@@ -52,6 +52,10 @@ public class SunTimes {
     public String toString() {
         return "time=" + CalendarFormat.formatFull(time) +
             " type=" + type;
+    }
+
+    public int compareTo(SunTimes other) {
+        return toString().compareTo(other.toString());
     }
 }
 

@@ -24,31 +24,28 @@
 
 package de.sixtyfourktec.mirrorhub.data;
 
-import de.sixtyfourktec.mirrorhub.helpers.CalendarFormat;
+import java.util.ArrayList;
 
-import java.util.Calendar;
-import java.lang.Integer;
+public class ComparableList<T extends Comparable> extends ArrayList<T> implements Comparable< ArrayList<T> > {
 
-public class Forecast implements Comparable<Forecast> {
-
-    public Calendar time;
-    public String temperature;
-    public int code;
-
-    public Forecast(Calendar cal, String temp, String code) {
-        this.time = cal;
-        this.temperature = temp;
-        this.code = Integer.parseInt(code);
+    public ComparableList() {
+        super();
     }
 
-    public String toString() {
-        return "time=" + CalendarFormat.formatFull(time) +
-            " temperature=" + temperature +
-            " code=" + code;
+    public ComparableList(int capacity) {
+        super(capacity);
     }
 
-    public int compareTo(Forecast other) {
-        return toString().compareTo(other.toString());
+    public int compareTo(ArrayList<T> other) {
+        if (this.size() != other.size())
+            return this.size() - other.size();
+
+        for (int i = 0; i < this.size(); i++) {
+            int a = this.get(i).compareTo(other.get(i));
+            if (a != 0)
+                return a;
+        }
+        return 0;
     }
 }
 
