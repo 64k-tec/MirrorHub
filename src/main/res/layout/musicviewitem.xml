@@ -33,7 +33,7 @@
       android:layout_height="@dimen/music_icon_height"
       android:layout_gravity="center_vertical|left"
       android:scaleType="centerInside"
-      android:src="@drawable/journey_train"
+      android:src="@drawable/music"
       android:contentDescription="@string/trainjourney_type"
       />
       <LinearLayout

@@ -50,8 +50,10 @@ public class MusicView extends AnimationSwitcher<MusicModule> {
 
             inflate(context, R.layout.musicviewitem, this);
 
-            ImageView icon = (ImageView)findViewById(R.id.icon);
-            icon.setImageBitmap(me.cover);
+            if (me.cover != null) {
+                ImageView icon = (ImageView)findViewById(R.id.icon);
+                icon.setImageBitmap(me.cover);
+            }
             TextView artist = (TextView)findViewById(R.id.artist);
             artist.setText(me.artist);
             TextView album = (TextView)findViewById(R.id.album);
