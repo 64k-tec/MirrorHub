@@ -24,17 +24,8 @@
 
 package de.sixtyfourktec.mirrorhub;
 
-import de.sixtyfourktec.mirrorhub.views.MirrorHubView;
-import de.sixtyfourktec.mirrorhub.views.DateView;
-import de.sixtyfourktec.mirrorhub.views.TimeView;
-import de.sixtyfourktec.mirrorhub.views.SunTimesView;
-import de.sixtyfourktec.mirrorhub.views.TimeToWorkView;
-import de.sixtyfourktec.mirrorhub.views.TrainJourneyView;
-import de.sixtyfourktec.mirrorhub.views.ForecastView;
-import de.sixtyfourktec.mirrorhub.views.CalendarView;
-import de.sixtyfourktec.mirrorhub.views.OverlayView;
-
 import de.sixtyfourktec.mirrorhub.modules.ModuleCallback;
+import de.sixtyfourktec.mirrorhub.modules.ModuleManager;
 
 import android.Manifest;
 import android.app.Activity;
@@ -66,8 +57,7 @@ public class Main extends Activity
 
     private static final int PERMISSIONS_REQUEST_READ_CALENDAR = 1;
 
-    private ArrayList<MirrorHubView> views = new ArrayList<MirrorHubView>();
-    private OverlayView overlayView;
+    private ModuleManager moduleManager;
 
     private SensorManager sensorManager = null;
     private Sensor proximitySensor;
@@ -109,7 +99,7 @@ public class Main extends Activity
             if (grantResults.length == 1 &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.i(TAG, "Calendar permission has now been granted.");
-                overlayView.enableCalendarView();
+                moduleManager.enableCalendarModule();
             } else {
                 Log.i(TAG, "Calendar permission was NOT granted.");
             }
@@ -162,13 +152,7 @@ public class Main extends Activity
 
         setContentView(R.layout.main);
 
-        views.add((DateView)findViewById(R.id.dateView));
-        views.add((TimeView)findViewById(R.id.timeView));
-        views.add((SunTimesView)findViewById(R.id.sunTimesView));
-        views.add((ForecastView)findViewById(R.id.forecastView));
-        views.add((TimeToWorkView)findViewById(R.id.timeToWorkView));
-        overlayView = (OverlayView)findViewById(R.id.overlayView);
-        views.add(overlayView);
+        moduleManager = ModuleManager.init(this);
 
         if (ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.READ_CALENDAR)
@@ -178,7 +162,7 @@ public class Main extends Activity
                     PERMISSIONS_REQUEST_READ_CALENDAR);
         }
         else
-            overlayView.enableCalendarView();
+            moduleManager.enableCalendarModule();
 
         if (BuildConfig.ENABLE_PROXIMITY_SENSOR) {
             sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
@@ -191,8 +175,7 @@ public class Main extends Activity
     public void onResume() {
         super.onResume();
 
-        for (int i = 0; i < views.size(); i++)
-            views.get(i).start();
+        moduleManager.start();
 
         if (sensorManager != null) {
             sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -209,8 +192,7 @@ public class Main extends Activity
             dimHandler.removeCallbacks(dimRunnable);
         }
 
-        for (int i = 0; i < views.size(); i++)
-            views.get(i).stop();
+        moduleManager.stop();
     }
 
     @Override

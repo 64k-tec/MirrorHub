@@ -29,9 +29,6 @@ import de.sixtyfourktec.mirrorhub.views.ViewCallback;
 public interface MirrorHubView {
 
     public abstract void addViewCallback(ViewCallback vc);
-
-    public abstract void start();
-    public abstract void stop();
 }
 
 /* ex: set tabstop=4 shiftwidth=4 expandtab: */

@@ -75,6 +75,7 @@ public class OverlayView extends ViewFlipper implements ViewCallback, MirrorHubV
         setOutAnimation(out);
 
         views.add(new TrainJourneyView(context));
+        views.add(new CalendarView(context));
         views.add(new MusicView(context));
 
         for (int i = 0; i < views.size(); i++)
@@ -85,22 +86,6 @@ public class OverlayView extends ViewFlipper implements ViewCallback, MirrorHubV
 
     public void addViewCallback(ViewCallback vc) {
         // ignored for now
-    }
-
-    public void start() {
-        for (int i = 0; i < views.size(); i++)
-            views.get(i).start();
-    }
-
-    public void stop() {
-        for (int i = 0; i < views.size(); i++)
-            views.get(i).stop();
-    }
-
-    public void enableCalendarView() {
-        MirrorHubView mhv = new CalendarView(context);
-        mhv.addViewCallback(this);
-        mhv.start();
     }
 
     @Override

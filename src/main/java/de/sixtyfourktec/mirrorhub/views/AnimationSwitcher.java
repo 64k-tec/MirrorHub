@@ -80,16 +80,6 @@ public class AnimationSwitcher<T extends Module> extends ViewSwitcher implements
         if (viewCallback != null)
             viewCallback.onNoData(this);
     }
-
-    public void start() {
-        if (module != null)
-            module.start();
-    }
-
-    public void stop() {
-        if (module != null)
-            module.stop();
-    }
 }
 
 /* ex: set tabstop=4 shiftwidth=4 expandtab: */
